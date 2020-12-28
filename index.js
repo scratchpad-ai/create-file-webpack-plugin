@@ -1,6 +1,6 @@
 'use strict';
 
-const write = require('write');
+const fs = require('fs');
 const path = require('path');
 
 module.exports = class CreateFilePlugin {
@@ -28,7 +28,7 @@ module.exports = class CreateFilePlugin {
   _createFile({ filePath, fileName, content }, compilation) {
     const fullPath = path.join(filePath, fileName);
     const contentData = typeof content === 'function' ? content({ filePath, fileName, compilation }) : content;
-    write.sync(fullPath, contentData);
+    fs.writeFile(fullPath, contentData);
   }
 
   apply(compiler) {
